@@ -12,20 +12,6 @@ const allBtn = document.getElementById("all-btn");
 const interviewBtn = document.getElementById("interview-btn");
 const rejectedBtn = document.getElementById("rejected-btn");
 
-function setActiveTab(activeBtn) {
-  allBtn.className = "btn btn-outline btn-primary";
-  interviewBtn.className = "btn btn-outline btn-success";
-  rejectedBtn.className = "btn btn-outline btn-error";
-
-  if (activeBtn === allBtn) {
-    activeBtn.className = "btn btn-primary";
-  } else if (activeBtn === interviewBtn) {
-    activeBtn.className = "btn btn-success";
-  } else if (activeBtn === rejectedBtn) {
-    activeBtn.className = "btn btn-error";
-  }
-}
-
 const renderList = (data, section, emptyMessage = "No Jobs Available") => {
   if (data.length === 0) {
     section.innerHTML = `
@@ -124,6 +110,20 @@ function updateJobStatus(id, newStatus) {
     updateUI();
   }
 }
+function setActiveTab(activeBtn) {
+  allBtn.className = "btn btn-outline btn-primary";
+  interviewBtn.className = "btn btn-outline btn-success";
+  rejectedBtn.className = "btn btn-outline btn-error";
+
+  if (activeBtn === allBtn) {
+    activeBtn.className = "btn btn-primary";
+  } else if (activeBtn === interviewBtn) {
+    activeBtn.className = "btn btn-success";
+  } else if (activeBtn === rejectedBtn) {
+    activeBtn.className = "btn btn-error";
+  }
+}
+
 allBtn.addEventListener("click", function () {
   setActiveTab(allBtn);
   jobs.classList.remove("hidden");
