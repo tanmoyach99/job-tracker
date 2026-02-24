@@ -40,7 +40,7 @@ const renderList = (data, section, emptyMessage = "No Jobs Available") => {
           </button>
         </div>
 
-        <div class="flex flex-wrap gap-3 md:gap-6 list-none text-xs md:text-sm mt-2">
+        <div class="flex flex-wrap gap-3 md:gap-6  text-xs md:text-sm mt-2">
             <li>${job.location}</li>
             <li>${job.type}</li>
             <li>${job.salary}</li>
