@@ -43,26 +43,24 @@ const renderList = (data, section, emptyMessage = "No Jobs Available") => {
     .map(
       (job) => `
     <div class="card bg-base-100 w-full text-start shadow-sm border border-base-200 mb-4">
-      <div class="card-body">
-        
-        <div class="flex justify-between items-start">
+      <div class="card-body p-4 md:p-8"> <div class="flex justify-between items-start gap-2">
           <div>
-            <h2 class="card-title text-3xl font-bold">${job.companyName}</h2>
-            <h6 class="text-gray-400 text-xl font-bold">${job.position}</h6>
+            <h2 class="card-title text-xl md:text-3xl font-bold">${job.companyName}</h2>
+            <h6 class="text-gray-400 text-lg md:text-xl font-bold">${job.position}</h6>
           </div>
 
-          <button class="btn btn-outline btn-warning btn-sm" onclick="handleDelete(${job.id})">
+          <button class="btn btn-outline btn-warning btn-xs md:btn-sm" onclick="handleDelete(${job.id})">
             <i class="fa-solid fa-trash"></i>
           </button>
         </div>
 
-        <div class="flex gap-6 list-none text-sm mt-2">
+        <div class="flex flex-wrap gap-3 md:gap-6 list-none text-xs md:text-sm mt-2">
             <li>${job.location}</li>
             <li>${job.type}</li>
             <li>${job.salary}</li>
         </div>
 
-        <button class="btn btn-soft w-36 mt-4 ${
+        <button class="btn btn-soft btn-xs md:btn-sm w-32 md:w-36 mt-4 ${
           job.status === "Interviewing"
             ? "btn-success"
             : job.status === "Rejected"
@@ -70,11 +68,14 @@ const renderList = (data, section, emptyMessage = "No Jobs Available") => {
               : ""
         }">${job.status}</button>
 
-        <p class="py-2">${job.description}</p>
+        <p class="py-2 text-sm md:text-base">${job.description}</p>
         
-        <div class="card-actions mt-auto">
+           <div class="card-actions sm:flex-row sm:gap-y-6 mt-auto">
+
            <button class="btn btn-outline btn-success" onclick="updateJobStatus(${job.id}, 'Interviewing')">Interview</button>
+
            <button class="btn btn-outline btn-error" onclick="updateJobStatus(${job.id}, 'Rejected')">Rejected</button>
+
         </div>
       </div>
     </div>
