@@ -4,6 +4,9 @@ let rejected = [];
 
 const interviewNum = document.getElementById("interview-no");
 const rejectedNum = document.getElementById("rejected-no");
+const jobs = document.getElementById("all-jobs");
+const interviewJobs = document.getElementById("interview-jobs");
+const rejectedJobs = document.getElementById("rejected-jobs");
 const totalCount = document.getElementById("total-count");
 const allBtn = document.getElementById("all-btn");
 const interviewBtn = document.getElementById("interview-btn");
@@ -80,31 +83,17 @@ const renderList = (data, section, emptyMessage = "No Jobs Available") => {
     .join("");
 };
 
-// }
-
 function updateUI() {
   renderList(allJobs, document.getElementById("all-jobs"));
-  renderList(
-    interview,
-    document.getElementById("interview-jobs"),
-    "No Interviews Scheduled",
-  );
-  renderList(
-    rejected,
-    document.getElementById("rejected-jobs"),
-    "No Rejected Applications",
-  );
+  renderList(interview, interviewJobs, "No Interviews Scheduled");
+  renderList(rejected, rejectedJobs, "No Rejected Applications");
 
   document.getElementById("total-no").innerText = allJobs.length;
   if (interviewNum) interviewNum.innerText = interview.length;
   if (rejectedNum) rejectedNum.innerText = rejected.length;
 
-  const isInterviewVisible = !document
-    .getElementById("interview-jobs")
-    .classList.contains("hidden");
-  const isRejectedVisible = !document
-    .getElementById("rejected-jobs")
-    .classList.contains("hidden");
+  const isInterviewVisible = !interviewJobs.classList.contains("hidden");
+  const isRejectedVisible = !rejectedJobs.classList.contains("hidden");
 
   if (isInterviewVisible) {
     totalCount.innerText = `${interview.length} of ${allJobs.length} jobs`;
@@ -136,32 +125,30 @@ function updateJobStatus(id, newStatus) {
 }
 allBtn.addEventListener("click", function () {
   setActiveTab(allBtn);
-  document.getElementById("all-jobs").classList.remove("hidden");
-  document.getElementById("interview-jobs").classList.add("hidden");
-  document.getElementById("rejected-jobs").classList.add("hidden");
+  jobs.classList.remove("hidden");
+  interviewJobs.classList.add("hidden");
+  rejectedJobs.classList.add("hidden");
   updateUI(); // Refresh the text
 });
 
 interviewBtn.addEventListener("click", function () {
   setActiveTab(interviewBtn);
-  document.getElementById("all-jobs").classList.add("hidden");
-  document.getElementById("interview-jobs").classList.remove("hidden");
-  document.getElementById("rejected-jobs").classList.add("hidden");
+  jobs.classList.add("hidden");
+  interviewJobs.classList.remove("hidden");
+  rejectedJobs.classList.add("hidden");
   updateUI(); // Refresh the text
 });
 
 rejectedBtn.addEventListener("click", function () {
   setActiveTab(rejectedBtn);
-  document.getElementById("all-jobs").classList.add("hidden");
-  document.getElementById("interview-jobs").classList.add("hidden");
-  document.getElementById("rejected-jobs").classList.remove("hidden");
+  jobs.classList.add("hidden");
+  interviewJobs.classList.add("hidden");
+  rejectedJobs.classList.remove("hidden");
   updateUI(); // Refresh the text
 });
 
 function handleDelete(id) {
-  const confirmDelete = confirm(
-    "Are you sure you want to delete this job listing?",
-  );
+  const confirmDelete = confirm("Are you sure you want to delete this job?");
 
   if (confirmDelete) {
     const jobIndex = allJobs.findIndex((job) => job.id === id);
@@ -173,7 +160,5 @@ function handleDelete(id) {
     rejected = rejected.filter((job) => job.id !== id);
 
     updateUI();
-
-    console.log(` ${id} deleted successfully.`);
   }
 }
