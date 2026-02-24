@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@5"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>Job tracker</title>
+  </head>
+  <body>
+    <header class="w-11/12 mx-auto bg-base-200 p-4">
+      <h1 class="font-extrabold text-4xl">Job Application tracker</h1>
+      <div class="card-container mx-auto flex gap-5">
+        <div class="card w-96 bg-base-100  shadow-sm">
+          <div class="card-body">
+            <h2 id="total-no" class="card-title">Total</h2>
+            <h4 class="font-extrabold text-2xl">8</h4>
+          </div>
+        </div>
+
+        <div class="card w-96 bg-base-100  shadow-sm">
+          <div class="card-body">
+            <h2  class="card-title">Interview</h2>
+            <h4 id="interview-no" class="text-green-400 font-extrabold text-2xl">0</h4>
+         </div>
+        </div>
+
+        <div class="card w-96 bg-base-100 shadow-sm">
+          <div class="card-body">
+            <h2 class="card-title">Rejected</h2>
+             <h4 id="rejected-no" class="text-red-400 font-extrabold text-2xl">0</h4>
+         </div>
+      </div>
+    </header>
+    <main>
+        
+        <section class="count w-11/12 mx-auto bg-base-200 p-4">
+            <h1 class="text-extrabold text-3xl">available jobs</h1>
+            <div class="btn-container p-4 my-4 flex gap-3">
+                <button class="btn  btn-primary">all</button>
+<button class="btn btn-outline btn-success">interview</button>
+<button class="btn btn-outline btn-error">rejected</button>
+            </div>
+        </section>
+        <section class="job-conatianer w-11/12 mx-auto bg-base-200 gap-y-4 p-4" id="jobs">
+
+    
+
+        </section>
+
+    </main>
+       <script src="./data.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>
