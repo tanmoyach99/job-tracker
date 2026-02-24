@@ -9,24 +9,19 @@ const allBtn = document.getElementById("all-btn");
 const interviewBtn = document.getElementById("interview-btn");
 const rejectedBtn = document.getElementById("rejected-btn");
 
-allBtn.addEventListener("click", function () {
-  allBtn.classList.add = "btn-primary";
-  interviewBtn.classList.remove = "btn-success";
-  rejectedBtn.classList.remove = "btn-error";
-  totalCount.innerText = `${allJobs.length} jobs`;
-});
-interviewBtn.addEventListener("click", function () {
-  allBtn.classList.remove = "btn-primary";
-  interviewBtn.classList.add = "btn-success";
-  rejectedBtn.classList.remove = "btn-error";
-  totalCount.innerText = `${interview.length} of ${allJobs.length} jobs`;
-});
-rejectedBtn.addEventListener("click", function () {
-  allBtn.classList.remove = "btn-primary";
-  interviewBtn.classList.remove = "btn-success";
-  rejectedBtn.classList.add = "btn-error";
-  totalCount.innerText = `${rejected.length} of ${allJobs.length} jobs`;
-});
+function setActiveTab(activeBtn) {
+  allBtn.className = "btn btn-outline btn-primary";
+  interviewBtn.className = "btn btn-outline btn-success";
+  rejectedBtn.className = "btn btn-outline btn-error";
+
+  if (activeBtn === allBtn) {
+    activeBtn.className = "btn btn-primary";
+  } else if (activeBtn === interviewBtn) {
+    activeBtn.className = "btn btn-success";
+  } else if (activeBtn === rejectedBtn) {
+    activeBtn.className = "btn btn-error";
+  }
+}
 
 const renderList = (data, section, emptyMessage = "No Jobs Available") => {
   if (data.length === 0) {
@@ -85,6 +80,22 @@ const renderList = (data, section, emptyMessage = "No Jobs Available") => {
     .join("");
 };
 
+// function updateUI() {
+//   renderList(allJobs, document.getElementById("all-jobs"));
+//   renderList(
+//     interview,
+//     document.getElementById("interview-jobs"),
+//     "No Interviews Scheduled",
+//   );
+//   renderList(
+//     rejected,
+//     document.getElementById("rejected-jobs"),
+//     "No Rejected Applications",
+//   );
+//   if (interviewNum) interviewNum.innerText = interview.length;
+//   if (rejectedNum) rejectedNum.innerText = rejected.length;
+// }
+
 function updateUI() {
   renderList(allJobs, document.getElementById("all-jobs"));
   renderList(
@@ -97,8 +108,25 @@ function updateUI() {
     document.getElementById("rejected-jobs"),
     "No Rejected Applications",
   );
+
+  document.getElementById("total-no").innerText = allJobs.length;
   if (interviewNum) interviewNum.innerText = interview.length;
   if (rejectedNum) rejectedNum.innerText = rejected.length;
+
+  const isInterviewVisible = !document
+    .getElementById("interview-jobs")
+    .classList.contains("hidden");
+  const isRejectedVisible = !document
+    .getElementById("rejected-jobs")
+    .classList.contains("hidden");
+
+  if (isInterviewVisible) {
+    totalCount.innerText = `${interview.length} of ${allJobs.length} jobs`;
+  } else if (isRejectedVisible) {
+    totalCount.innerText = `${rejected.length} of ${allJobs.length} jobs`;
+  } else {
+    totalCount.innerText = `total ${allJobs.length} jobs`;
+  }
 }
 
 updateUI();
@@ -120,3 +148,26 @@ function updateJobStatus(id, newStatus) {
     updateUI();
   }
 }
+allBtn.addEventListener("click", function () {
+  setActiveTab(allBtn);
+  document.getElementById("all-jobs").classList.remove("hidden");
+  document.getElementById("interview-jobs").classList.add("hidden");
+  document.getElementById("rejected-jobs").classList.add("hidden");
+  updateUI(); // Refresh the text
+});
+
+interviewBtn.addEventListener("click", function () {
+  setActiveTab(interviewBtn);
+  document.getElementById("all-jobs").classList.add("hidden");
+  document.getElementById("interview-jobs").classList.remove("hidden");
+  document.getElementById("rejected-jobs").classList.add("hidden");
+  updateUI(); // Refresh the text
+});
+
+rejectedBtn.addEventListener("click", function () {
+  setActiveTab(rejectedBtn);
+  document.getElementById("all-jobs").classList.add("hidden");
+  document.getElementById("interview-jobs").classList.add("hidden");
+  document.getElementById("rejected-jobs").classList.remove("hidden");
+  updateUI(); // Refresh the text
+});

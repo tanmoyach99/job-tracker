@@ -39,32 +39,25 @@
     </header>
     <main>
         
-        <section class="count w-11/12 mx-auto bg-base-200 p-4">
+        <section class="count w-11/12 mx-auto bg-base-200 p-4 sticky z-100">
             <h1 class="text-extrabold text-3xl">available jobs</h1>
             <div class="btn-container flex justify-between">
                 <div class="btn-container p-4 my-4 flex gap-3">
-                <button class="btn  btn-primary">all</button>
-<button class="btn btn-outline btn-success">interview</button>
-<button class="btn btn-outline btn-error">rejected</button>
+                <button id="all-btn" class="btn btn-primary">all</button>
+<button id="interview-btn" class="btn btn-outline btn-success">interview</button>
+<button id="rejected-btn" class="btn btn-outline btn-error">rejected</button>
             </div>
             <p id="total-count" class="text-gray-800 text-bold px-10"> total 8 jobs</p>
-            </div>
-            
+            </div>    
         </section>
-        <section class="job-conatianer w-11/12 mx-auto bg-base-200 gap-y-4 p-4" id="all-jobs">
+       <section class="job-container w-11/12 mx-auto bg-base-200 p-4" id="all-jobs">
+    </section>
 
-    
+<section class="job-container w-11/12 mx-auto bg-base-200 p-4 hidden" id="interview-jobs">
+</section>
 
-        </section>
-        <section class="job-conatianer w-11/12 mx-auto bg-base-200 gap-y-4 p-4" id="interview-jobs">
-
-            
-           
-
-        </section>
-        <section class="job-conatianer w-11/12 mx-auto bg-base-200 gap-y-4 p-4" id="rejected-jobs">
-
-        </section>
+<section class="job-container w-11/12 mx-auto bg-base-200 p-4 hidden" id="rejected-jobs">
+</section>
 
     </main>
        <script src="./data.js"></script>
