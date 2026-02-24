@@ -80,20 +80,6 @@ const renderList = (data, section, emptyMessage = "No Jobs Available") => {
     .join("");
 };
 
-// function updateUI() {
-//   renderList(allJobs, document.getElementById("all-jobs"));
-//   renderList(
-//     interview,
-//     document.getElementById("interview-jobs"),
-//     "No Interviews Scheduled",
-//   );
-//   renderList(
-//     rejected,
-//     document.getElementById("rejected-jobs"),
-//     "No Rejected Applications",
-//   );
-//   if (interviewNum) interviewNum.innerText = interview.length;
-//   if (rejectedNum) rejectedNum.innerText = rejected.length;
 // }
 
 function updateUI() {
@@ -171,3 +157,23 @@ rejectedBtn.addEventListener("click", function () {
   document.getElementById("rejected-jobs").classList.remove("hidden");
   updateUI(); // Refresh the text
 });
+
+function handleDelete(id) {
+  const confirmDelete = confirm(
+    "Are you sure you want to delete this job listing?",
+  );
+
+  if (confirmDelete) {
+    const jobIndex = allJobs.findIndex((job) => job.id === id);
+    if (jobIndex !== -1) {
+      allJobs.splice(jobIndex, 1);
+    }
+
+    interview = interview.filter((job) => job.id !== id);
+    rejected = rejected.filter((job) => job.id !== id);
+
+    updateUI();
+
+    console.log(` ${id} deleted successfully.`);
+  }
+}
