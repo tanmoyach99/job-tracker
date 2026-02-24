@@ -2,6 +2,32 @@ const allJobs = [...jobListings];
 let interview = [];
 let rejected = [];
 
+const interviewNum = document.getElementById("interview-no");
+const rejectedNum = document.getElementById("rejected-no");
+const totalCount = document.getElementById("total-count");
+const allBtn = document.getElementById("all-btn");
+const interviewBtn = document.getElementById("interview-btn");
+const rejectedBtn = document.getElementById("rejected-btn");
+
+allBtn.addEventListener("click", function () {
+  allBtn.classList.add = "btn-primary";
+  interviewBtn.classList.remove = "btn-success";
+  rejectedBtn.classList.remove = "btn-error";
+  totalCount.innerText = `${allJobs.length} jobs`;
+});
+interviewBtn.addEventListener("click", function () {
+  allBtn.classList.remove = "btn-primary";
+  interviewBtn.classList.add = "btn-success";
+  rejectedBtn.classList.remove = "btn-error";
+  totalCount.innerText = `${interview.length} of ${allJobs.length} jobs`;
+});
+rejectedBtn.addEventListener("click", function () {
+  allBtn.classList.remove = "btn-primary";
+  interviewBtn.classList.remove = "btn-success";
+  rejectedBtn.classList.add = "btn-error";
+  totalCount.innerText = `${rejected.length} of ${allJobs.length} jobs`;
+});
+
 const renderList = (data, section, emptyMessage = "No Jobs Available") => {
   if (data.length === 0) {
     section.innerHTML = `
@@ -71,30 +97,26 @@ function updateUI() {
     document.getElementById("rejected-jobs"),
     "No Rejected Applications",
   );
+  if (interviewNum) interviewNum.innerText = interview.length;
+  if (rejectedNum) rejectedNum.innerText = rejected.length;
 }
 
 updateUI();
 
 function updateJobStatus(id, newStatus) {
-  // 1. Find the job in the master array
   const job = allJobs.find((j) => j.id === id);
 
   if (job) {
-    // 2. ONLY the status is updated here
     job.status = newStatus;
 
-    // 3. Update the specific tracking arrays
     if (newStatus === "Interviewing") {
-      // Add to interview if not there, remove from rejected
       if (!interview.some((j) => j.id === id)) interview.push(job);
       rejected = rejected.filter((j) => j.id !== id);
     } else if (newStatus === "Rejected") {
-      // Add to rejected if not there, remove from interview
       if (!rejected.some((j) => j.id === id)) rejected.push(job);
       interview = interview.filter((j) => j.id !== id);
     }
 
-    // 4. Refresh the UI
     updateUI();
   }
 }
